@@ -1,3 +1,4 @@
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -10,7 +11,10 @@ public class Database {
 	static Connection conn;
 	
 	public static void connectDatabase(){
-		String jdbcURL = "jdbc:h2:~/api";
+                File caminho = new File("."); // INSERI A LOCALIZAÇÃO ATUAL DA APLICAÇÃO PARA NÃO PRECISAR EDITAR O CAMINHO DO BANCO.
+                System.out.println(caminho);
+                //String jdbcURL = "jdbc:h2:"+caminho;
+		String jdbcURL = "jdbc:h2:"+caminho+"/api";
 		String username = "sa";
 		String password = "";                
            
@@ -19,6 +23,7 @@ public class Database {
 			conn = DriverManager.getConnection(jdbcURL, username, password); // inicia conexão com banco de dados.
 			System.out.println("Conectado ao banco H2");
 		} catch (SQLException e) { // Tratativa de excessões erros de conexão.
+                        System.out.println("ERRO DE CONEXÃO");
 			e.printStackTrace(); // Imprimi os erros caso haja problema na conexão.
 		}  
 	}
